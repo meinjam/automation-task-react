@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+
+$primary-color: #167f92;
+$primary-white: #fff;
+$primary-black: #111;
+
+body {
+  font-family: 'Nunito', sans-serif;
+}
+
+@mixin button(
+  $bgColor: $primary-color,
+  $color: $primary-white,
+  $borderC: $primary-color,
+  $fontSize: 20px,
+  $pT: 7px,
+  $pB: 7px,
+  $mW: 115px
+) {
+  background-color: $bgColor;
+  color: $color;
+  border-radius: 10px;
+  border: 1px solid $borderC;
+  font-size: $fontSize;
+  padding-top: $pT;
+  padding-bottom: $pB;
+  min-width: $mW;
+}
+
+.products {
+  .table {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid $primary-color;
+
+    // tbody {
+    //   tr {
+    //     cursor: pointer;
+    //   }
+    // }
+
+    tr {
+      border: 1px solid #d9e4e6;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #eaf3f3;
+    }
+
+    th.id {
+      min-width: 60px;
+    }
+
+    th.name {
+      min-width: 160px;
+    }
+
+    th.w-80 {
+      min-width: 80px;
+    }
+
+    th.w-100 {
+      min-width: 100px;
+    }
+
+    th.w-120 {
+      min-width: 120px;
+    }
+
+    th {
+      border: 1px solid $primary-white;
+      background-color: $primary-color;
+      color: $primary-white;
+      padding: 10px 15px;
+
+      .th-div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .th-div .filter-arrow {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      span img.top-arrow {
+        transform: rotate(90deg);
+        width: 12px;
+        cursor: pointer;
+      }
+
+      span img.bottom-arrow {
+        transform: rotate(-90deg);
+        width: 12px;
+        cursor: pointer;
+      }
+    }
+
+    td {
+      border: 1px solid #1680922d;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+
+  form {
+    input {
+      border: none;
+      outline: none;
+      border: 1px solid $primary-color;
+      border-radius: 10px;
+      padding: 10px 15px;
+    }
+    button {
+      border: 1px solid $primary-color;
+      border-radius: 10px;
+      background-color: $primary-color;
+      padding: 10px 15px;
+
+      img {
+        width: 25px;
+      }
+    }
+  }
+
+  .button-group {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    button {
+      background-color: $primary-color;
+      color: $primary-white;
+      border-radius: 10px;
+      border: 1px solid $primary-color;
+      font-size: 20px;
+      padding-top: 7px;
+      padding-bottom: 7px;
+      min-width: 115px;
+    }
+  }
+}
+
+.modal-dialog.book-return {
+  .modal-body {
+    .head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .body {
+      .date {
+        display: flex;
+      }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: end;
+      margin-top: 15px;
+
+      button.no {
+        @include button($primary-white, $primary-color, $primary-color, 18px);
+      }
+
+      button.yes {
+        @include button($primary-color, $primary-white, $primary-color, 18px);
+      }
+    }
+  }
+}
