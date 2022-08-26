@@ -107,6 +107,8 @@ body {
   }
 
   form {
+    display: flex;
+
     input {
       border: none;
       outline: none;

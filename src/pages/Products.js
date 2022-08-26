@@ -1,114 +1,55 @@
-import React, { useState } from 'react';
-import SearchIcon from '../assets/img/search.svg';
+import React, { useEffect, useState } from 'react';
 import ArrowIcon from '../assets/img/chevron-right.svg';
 import OrderModal from '../components/Modal';
+import axios from 'axios';
+import Skeleton from 'react-loading-skeleton';
+import Search from '../components/Products/Search';
+import { toast } from 'react-toastify';
 
 const Products = () => {
-  const [products, setProducts] = useState([
-    {
-      code: 'm1',
-      name: 'Boom lift 40',
-      type: 'meter',
-      availability: true,
-      needing_repair: false,
-      durability: 4000,
-      max_durability: 8000,
-      mileage: 10000,
-      price: 1000,
-      minimum_rent_period: 4,
-    },
-    {
-      code: 'm2',
-      name: 'Boom lift 60',
-      type: 'meter',
-      availability: true,
-      needing_repair: false,
-      durability: 8000,
-      max_durability: 10000,
-      mileage: 5000,
-      price: 1500,
-      minimum_rent_period: 4,
-    },
-    {
-      code: 'm3',
-      name: 'Boom lift 80',
-      type: 'meter',
-      availability: false,
-      needing_repair: true,
-      durability: 500,
-      max_durability: 12000,
-      mileage: 200,
-      price: 2000,
-      minimum_rent_period: 2,
-    },
-    {
-      code: 'm4',
-      name: 'Boom lift 100',
-      type: 'meter',
-      availability: true,
-      needing_repair: false,
-      durability: 4000,
-      max_durability: 12000,
-      mileage: 8500,
-      price: 2500,
-      minimum_rent_period: 2,
-    },
-    {
-      code: 'm5',
-      name: 'Boom lift 20',
-      type: 'meter',
-      availability: true,
-      needing_repair: false,
-      durability: 1200,
-      max_durability: 8000,
-      mileage: 600,
-      price: 500,
-      minimum_rent_period: 1,
-    },
-    {
-      code: 'm6',
-      name: 'Boom lift 20',
-      type: 'meter',
-      availability: true,
-      needing_repair: false,
-      durability: 8000,
-      max_durability: 8000,
-      mileage: 0,
-      price: 500,
-      minimum_rent_period: 1,
-    },
-    {
-      code: 'm7',
-      name: 'Boom lift 20',
-      type: 'meter',
-      availability: true,
-      needing_repair: false,
-      durability: 5000,
-      max_durability: 8000,
-      mileage: 1200,
-      price: 500,
-      minimum_rent_period: 1,
-    },
-    {
-      code: 'm8',
-      name: 'Boom lift 40',
-      type: 'meter',
-      availability: true,
-      needing_repair: false,
-      durability: 8000,
-      max_durability: 10000,
-      mileage: 2500,
-      price: 1000,
-      minimum_rent_period: 2,
-    },
-  ]);
+  const [products, setProducts] = useState(null);
+  const [fetchingData, setFetchingData] = useState(false);
   const [searchTxt, setSearchTxt] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [modalType, setmodalType] = useState('Book');
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = (search = '') => {
+    setFetchingData(true);
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/api/products?search=${search}`)
+      .then((resp) => {
+        console.log(resp.data);
+        setProducts(resp.data);
+        setFetchingData(false);
+      })
+      .catch((error) => {
+        console.log(error.response);
+        setFetchingData(false);
+      });
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log(searchTxt);
+    if (searchTxt.trim() === '') {
+      toast.error('Please type something and search', {
+        autoClose: 2000,
+      });
+    } else {
+      // console.log(searchTxt);
+      const params = new URLSearchParams(window.location.search);
+      params.set('search', searchTxt);
+      window.history.replaceState(
+        {},
+        '',
+        `${window.location.pathname}?${params}`
+      );
+
+      fetchData(searchTxt);
+    }
   };
 
   const handleOpenModal = (type) => {
@@ -121,20 +62,12 @@ const Products = () => {
       <div className='container'>
         <div className='row'>
           <div className='col-12'>
-            <form onSubmit={handleSearch}>
-              <div className='input-group mb-3 justify-content-end'>
-                <input
-                  type='text'
-                  className=''
-                  placeholder='Search product'
-                  value={searchTxt}
-                  onChange={(e) => setSearchTxt(e.target.value)}
-                />
-                <button type='submit' className='input-group-text'>
-                  <img src={SearchIcon} alt='' />
-                </button>
-              </div>
-            </form>
+            <Search
+              searchTxt={searchTxt}
+              setSearchTxt={setSearchTxt}
+              handleSearch={handleSearch}
+              fetchData={fetchData}
+            />
 
             <div className='table-responsive'>
               <table className='table table-bordered shadow-sm'>
@@ -234,28 +167,59 @@ const Products = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {products.length !== 0 &&
-                    products.map((product, i) => (
-                      <tr key={i}>
-                        <td>#{i + 1}</td>
-                        <td>{product.name}</td>
-                        <td>{product.code}</td>
-                        <td>{product.availability ? 'True' : 'False'}</td>
-                        <td>{product.needing_repair ? 'True' : 'False'}</td>
-                        <td>{product.durability}</td>
-                        <td>{product.mileage}</td>
-                      </tr>
-                    ))}
+                  {!fetchingData && (
+                    <>
+                      {products &&
+                        products.map((product, i) => (
+                          <tr key={i}>
+                            <td>#{i + 1}</td>
+                            <td>{product.name}</td>
+                            <td>{product.code}</td>
+                            <td>{product.availability ? 'True' : 'False'}</td>
+                            <td>{product.needing_repair ? 'True' : 'False'}</td>
+                            <td>{product.durability}</td>
+                            <td>{product.mileage}</td>
+                          </tr>
+                        ))}
+                    </>
+                  )}
                 </tbody>
               </table>
+
+              {fetchingData && (
+                <div className='mb-3'>
+                  <Skeleton count={10} height={40} />
+                </div>
+              )}
             </div>
 
-            <div className='button-group'>
-              <button className='me-2' onClick={() => handleOpenModal('Book')}>
-                Book
-              </button>
-              <button onClick={() => handleOpenModal('Return')}>Return</button>
-            </div>
+            {!fetchingData && (
+              <>
+                {products && products.length === 0 && (
+                  <>
+                    <h5>Sorry no data found.</h5>
+                  </>
+                )}
+              </>
+            )}
+
+            {!fetchingData && (
+              <>
+                {products && products.length !== 0 && (
+                  <div className='button-group'>
+                    <button
+                      className='me-2'
+                      onClick={() => handleOpenModal('Book')}
+                    >
+                      Book
+                    </button>
+                    <button onClick={() => handleOpenModal('Return')}>
+                      Return
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
 
             <OrderModal
               showModal={showModal}

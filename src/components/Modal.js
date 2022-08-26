@@ -32,11 +32,12 @@ const OrderModal = ({ showModal, setShowModal, modalType, products }) => {
               onChange={(e) => setSelectedProduct(e.target.value)}
             >
               <option value=''>Select a product</option>
-              {products.map((product, i) => (
-                <option value={product.name} key={i}>
-                  {product.name}
-                </option>
-              ))}
+              {products &&
+                products.map((product, i) => (
+                  <option value={product.name} key={i}>
+                    {product.name}
+                  </option>
+                ))}
             </select>
 
             <div className='date my-3'>
