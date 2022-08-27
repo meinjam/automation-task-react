@@ -1,10 +1,17 @@
 import React from 'react';
 import SearchIcon from '../../assets/img/search.svg';
 
-const Search = ({ handleSearch, searchTxt, setSearchTxt, fetchData }) => {
+const Search = ({
+  handleSearch,
+  searchTxt,
+  setSearchTxt,
+  fetchData,
+  setSortName,
+}) => {
   const handleRefreshData = () => {
     fetchData();
     setSearchTxt('');
+    setSortName('');
     const newURL = window.location.href.split('?')[0];
     window.history.pushState('object', document.title, newURL);
   };

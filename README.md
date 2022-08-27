@@ -61,19 +61,22 @@ _Note: Now this will run the app in the development mode and Open http://localho
   _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
 
 - **_bootstrap >= 5.2.0 :_** \
-  _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
+  _Sleek, intuitive, and powerful front-end framework for faster and easier web development ans stylng along with predefined components._
 
 - **_react-bootstrap >= 2.5.0 :_** \
-  _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
+  _React-Bootstrap is compatible with various versions of Bootstrap. As such, it is needed to ensure the correct combination of versions._
 
 - **_react-loading-skeleton >= 3.1.0 :_** \
-  _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
+  _Make beautiful, animated loading skeletons that automatically adapt to our app._
 
 - **_react-toastify >= 9.0.8 :_** \
-  _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
+  _React-Toastify allows you to add notifications to your app with ease. Super easy to customize, RTL support, Swipe to close, Beautiful by default, Can choose swipe direction, Super easy to use an animation of your choice, Can display a react component inside the toast!,Can remove a toast programmatically, Define behavior per toast etc. many more functionality._
 
 - **_sass >= 1.54.5 :_** \
-  _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
+  _Sass is a preprocessor scripting language that is interpreted or compiled into Cascading Style Sheets. SassScript is the scripting language itself._
+
+- **_moment >= 2.29.4 :_** \
+  _moment is the library to interact with the date and time problem domain. The manupulation of dates are hold mostly by this library in our app._
 
 ## Files And Directories Tree
 
