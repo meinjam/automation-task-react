@@ -34,7 +34,7 @@ const OrderModal = ({ showModal, setShowModal, modalType, products }) => {
               <option value=''>Select a product</option>
               {products &&
                 products.map((product, i) => (
-                  <option value={product.name} key={i}>
+                  <option value={product.id} key={i}>
                     {product.name}
                   </option>
                 ))}

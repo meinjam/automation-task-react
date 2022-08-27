@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+![CHEESE!](./src/assets/img/demo.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## &nbsp;
 
-## Available Scripts
+<h1 align="center">Rental App - React and Laravel</h1>
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+- [Table of Contents](#)
+- [About](#about)
+- [Prerequisites](#prerequisites)
+- [Installing](#installing)
+- [Third Party Dependencies](#third-party-dependencies)
+- [Files And Directories Tree](#files-and-directories-tree)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## About
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Simple rental app with react js and laravel.
 
-### `npm test`
+## Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Node : ^16.16.0](https://nodejs.org/en/download/)
+- [npm : ^8.11.0](https://nodejs.org/en/download/)
+- [Yarn : ^1.22.10](https://classic.yarnpkg.com/en/docs/install)
+- [Git](https://git-scm.com/downloads)
 
-### `npm run build`
+## Installing
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Open terminal or command prompt
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Clone the project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  > ```bash
+  > git clone https://github.com/meinjam/automation-task-react.git
+  > cd automation-task-react
+  > ```
 
-### `npm run eject`
+- Install required libraries for project
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+> `npm install` \
+> _or,_ \
+> `yarn`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Run the code after installing the libraries
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+> `npm start` \
+> _or,_ \
+> `yarn start`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+_Note: Now this will run the app in the development mode and Open http://localhost:3000 to view it in the default browser._
 
-## Learn More
+- Create build file
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> `npm run build` \
+> _or,_ \
+> `yarn build`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Third Party Dependencies
 
-### Code Splitting
+- **_axios >= 0.27.2 :_** \
+  _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **_bootstrap >= 5.2.0 :_** \
+  _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
 
-### Analyzing the Bundle Size
+- **_react-bootstrap >= 2.5.0 :_** \
+  _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **_react-loading-skeleton >= 3.1.0 :_** \
+  _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
 
-### Making a Progressive Web App
+- **_react-toastify >= 9.0.8 :_** \
+  _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **_sass >= 1.54.5 :_** \
+  _Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code._
 
-### Advanced Configuration
+## Files And Directories Tree
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **_public :_**\
+  _Holds main index.html file._
+- **_src :_** \
+  _Holds js files which will be mostly edited._
+  - **_App.js :_** \
+    _Holds main Tasks page._
+  - **_assets :_** \
+    _Holds the static files like scss amd images._
+    - **_scss :_**\
+      _Holds the required scss for app._
+    - **_img :_** \
+      _Holds the required images for pages and components._
+  - **_components :_** \
+    _Holds all the component file regarding every page._
+  - **_pages :_** \
+    _Holds all the main page parent files._
+    - **_Products.js :_**\
+      _This is the main product page. Shows all the products. Product search, filter and book, return functionalities._
+- **_{+ .env: +}_** \
+  _{+ Holds the required API urls to fetch data from backend +}_
+- **_.gitignore_**
+- **_package.json_**
+- **_package-lock.json_**
+- **_README.md_**

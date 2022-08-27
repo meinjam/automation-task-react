@@ -14,7 +14,18 @@ const Products = () => {
   const [modalType, setmodalType] = useState('Book');
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
+    const getUrl = new URL(window.location.href);
+    const paramsSearch = getUrl.searchParams.get('search');
+
+    if (paramsSearch) {
+      // console.log('params found', paramsSearch);
+      fetchData(paramsSearch);
+      setSearchTxt(paramsSearch);
+    } else {
+      // console.log('no params found');
+      fetchData();
+    }
   }, []);
 
   const fetchData = (search = '') => {
