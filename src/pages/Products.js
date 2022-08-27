@@ -13,25 +13,34 @@ const Products = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setmodalType] = useState('Book');
 
-  useEffect(() => {
-    // fetchData();
-    const getUrl = new URL(window.location.href);
-    const paramsSearch = getUrl.searchParams.get('search');
+  const [sortName, setSortName] = useState('');
 
-    if (paramsSearch) {
-      // console.log('params found', paramsSearch);
-      fetchData(paramsSearch);
-      setSearchTxt(paramsSearch);
-    } else {
-      // console.log('no params found');
-      fetchData();
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    let searchTxt = '';
+    let pType = 'id';
+    let pName = 'asc';
+
+    for (const param of params) {
+      if (param[0] === 'search') {
+        searchTxt = param[1];
+      } else {
+        pType = param[0];
+        pName = param[1];
+        setSortName(`${param[0]}_${param[1]}`);
+      }
     }
+
+    fetchData(searchTxt, pType, pName);
   }, []);
 
-  const fetchData = (search = '') => {
+  const fetchData = (search = '', sortBy = 'id', type = 'asc') => {
     setFetchingData(true);
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/api/products?search=${search}`)
+      .get(
+        `${process.env.REACT_APP_BASE_URL}/products?search=${search}&${sortBy}=${type}`
+      )
       .then((resp) => {
         console.log(resp.data);
         setProducts(resp.data);
@@ -52,6 +61,18 @@ const Products = () => {
     } else {
       // console.log(searchTxt);
       const params = new URLSearchParams(window.location.search);
+
+      let pName = 'id';
+      let pType = 'asc';
+
+      for (const param of params) {
+        // console.log(param[0]);
+        if (param[0] === 'id' || param[0] === 'name' || param[0] === 'price') {
+          pName = param[0];
+          pType = param[1];
+        }
+      }
+
       params.set('search', searchTxt);
       window.history.replaceState(
         {},
@@ -59,13 +80,38 @@ const Products = () => {
         `${window.location.pathname}?${params}`
       );
 
-      fetchData(searchTxt);
+      fetchData(searchTxt, pName, pType);
     }
   };
 
   const handleOpenModal = (type) => {
     setmodalType(type);
     setShowModal(true);
+  };
+
+  const handleSort = (name, type) => {
+    // console.log(name);
+    // console.log(type);
+
+    setSortName(`${name}_${type}`);
+
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.has('id')) {
+      params.delete('id');
+    } else if (params.has('name')) {
+      params.delete('name');
+    } else if (params.has('price')) {
+      params.delete('price');
+    }
+
+    params.set(`${name}`, type);
+    window.history.replaceState(
+      {},
+      '',
+      `${window.location.pathname}?${params}`
+    );
+    fetchData(searchTxt, name, type);
   };
 
   return (
@@ -91,9 +137,19 @@ const Products = () => {
                           <img
                             src={ArrowIcon}
                             alt=''
-                            className='bottom-arrow'
+                            className={`bottom-arrow ${
+                              sortName === 'id_desc' ? 'active' : ''
+                            }`}
+                            onClick={() => handleSort('id', 'desc')}
                           />
-                          <img src={ArrowIcon} alt='' className='top-arrow' />
+                          <img
+                            onClick={() => handleSort('id', 'asc')}
+                            src={ArrowIcon}
+                            alt=''
+                            className={`top-arrow ${
+                              sortName === 'id_asc' ? 'active' : ''
+                            }`}
+                          />
                         </span>
                       </div>
                     </th>
@@ -105,38 +161,44 @@ const Products = () => {
                             src={ArrowIcon}
                             alt=''
                             className='bottom-arrow'
+                            onClick={() => handleSort('name', 'desc')}
                           />
-                          <img src={ArrowIcon} alt='' className='top-arrow' />
+                          <img
+                            src={ArrowIcon}
+                            alt=''
+                            className='top-arrow'
+                            onClick={() => handleSort('name', 'asc')}
+                          />
                         </span>
                       </div>
                     </th>
                     <th className='code'>
                       <div className='th-div'>
                         <span className='name'>Code</span>
-                        <span className='filter-arrow'>
+                        {/* <span className='filter-arrow'>
                           <img
                             src={ArrowIcon}
                             alt=''
                             className='bottom-arrow'
                           />
                           <img src={ArrowIcon} alt='' className='top-arrow' />
-                        </span>
+                        </span> */}
                       </div>
                     </th>
                     <th className='availability'>
                       <div className='th-div'>
                         <span className='name'>Availability</span>
-                        <span className='filter-arrow'>
+                        {/* <span className='filter-arrow'>
                           <img
                             src={ArrowIcon}
                             alt=''
                             className='bottom-arrow'
                           />
                           <img src={ArrowIcon} alt='' className='top-arrow' />
-                        </span>
+                        </span> */}
                       </div>
                     </th>
-                    <th className='ntr'>
+                    {/* <th className='ntr'>
                       <div className='th-div'>
                         <span className='name'>Needing To Repair</span>
                         <span className='filter-arrow'>
@@ -148,31 +210,50 @@ const Products = () => {
                           <img src={ArrowIcon} alt='' className='top-arrow' />
                         </span>
                       </div>
+                    </th> */}
+                    <th className='price'>
+                      <div className='th-div'>
+                        <span className='name'>Price</span>
+                        <span className='filter-arrow'>
+                          <img
+                            src={ArrowIcon}
+                            alt=''
+                            className='bottom-arrow'
+                            onClick={() => handleSort('price', 'desc')}
+                          />
+                          <img
+                            src={ArrowIcon}
+                            alt=''
+                            className='top-arrow'
+                            onClick={() => handleSort('price', 'asc')}
+                          />
+                        </span>
+                      </div>
                     </th>
                     <th className='ntdurar'>
                       <div className='th-div'>
                         <span className='name'>Durability</span>
-                        <span className='filter-arrow'>
+                        {/* <span className='filter-arrow'>
                           <img
                             src={ArrowIcon}
                             alt=''
                             className='bottom-arrow'
                           />
                           <img src={ArrowIcon} alt='' className='top-arrow' />
-                        </span>
+                        </span> */}
                       </div>
                     </th>
                     <th className='mile'>
                       <div className='th-div'>
                         <span className='name'>Mileage</span>
-                        <span className='filter-arrow'>
+                        {/* <span className='filter-arrow'>
                           <img
                             src={ArrowIcon}
                             alt=''
                             className='bottom-arrow'
                           />
                           <img src={ArrowIcon} alt='' className='top-arrow' />
-                        </span>
+                        </span> */}
                       </div>
                     </th>
                   </tr>
@@ -183,11 +264,12 @@ const Products = () => {
                       {products &&
                         products.map((product, i) => (
                           <tr key={i}>
-                            <td>#{i + 1}</td>
+                            <td>#{product.id}</td>
                             <td>{product.name}</td>
                             <td>{product.code}</td>
                             <td>{product.availability ? 'True' : 'False'}</td>
-                            <td>{product.needing_repair ? 'True' : 'False'}</td>
+                            {/* <td>{product.needing_repair ? 'True' : 'False'}</td> */}
+                            <td>{product.price}</td>
                             <td>{product.durability}</td>
                             <td>{product.mileage}</td>
                           </tr>
