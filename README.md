@@ -75,9 +75,6 @@ _Note: Now this will run the app in the development mode and Open http://localho
 - **_sass >= 1.54.5 :_** \
   _Sass is a preprocessor scripting language that is interpreted or compiled into Cascading Style Sheets. SassScript is the scripting language itself._
 
-- **_moment >= 2.29.4 :_** \
-  _moment is the library to interact with the date and time problem domain. The manupulation of dates are hold mostly by this library in our app._
-
 ## Files And Directories Tree
 
 - **_public :_**\
